@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <title>Fighter Input</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+
+
+    <script>
+        function validateForm() {
+            var comboInput = $("#inputs").val().trim().toUpperCase();
+            var valid = comboInput.match(/^[1-9LMHSA,]+$/g);
+            if (valid) {
+                for (var i = 0; i < comboInput.length; i++) {
+                    if (comboInput.charAt(i) === 'A') {
+                        valid = comboInput.charAt(i + 1) === '1' || comboInput.charAt(i + 1) === '2';
+                    }
+                }
+
+            }
+
+            if (!valid) {
+                alert("Combo input invalid!!!");
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div class="container" align="center">
+    <div class="jumbotron">
+        <h1 class="display-3">Fighter Input</h1>
+    </div>
+
+    <div class="card-block" align="center">
+        <form action="{{ url_for('submit') }}" method="post" class="form-horizontal"
+              onsubmit="return validateForm()" id="sForm">
+
+            <div class="form-group-lg mx-auto">
+                <input type="text" class="form-control" id="inputs" name="inputs" placeholder="INPUTS" required>
+            </div>
+            <br>
+            <label>
+                Select Size:
+                <select class="form-control" name="size">
+                    <option value="24">24px</option>
+                    <option value="48">48px</option>
+                    <option value="98">98px</option>
+                </select>
+            </label>
+            <br>
+            <!--
+            <label>
+                Imgur Upload
+                <input value="1" name="checkb" class="subject-list" type="checkbox" checked>
+            </label>
+            <br>
+            <label>
+                Download Zip
+                <input value="2" name="checkb" class="subject-list" type="checkbox">
+            </label>
+            <script type="text/javascript">
+                $('.subject-list').on('change', function () {
+                    $('.subject-list').not(this).prop('checked', false);
+                });
+            </script>
+            <br>
+            -->
+            <br>
+            <button class="btn btn-primary" name="submit" type="submit" value="Submit">Submit</button>
+        </form>
+        <br>
+        <div align="center">
+            <div style="border: 1px solid; width:920px;" align="center">
+                96px size example<br>
+                <img src="/static/96px-example.png" alt="96px example">
+            </div>
+            <br>
+            <div style="border: 1px solid; width:460px;" align="center">
+                48px size example<br>
+                <img src="/static/48px-example.png" alt="96px example">
+            </div>
+            <br>
+            <div style="border: 1px solid; width:237px;" align="center">
+                24px size example<br>
+                <img src="/static/24px-example.png" alt="96px example">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
